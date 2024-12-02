@@ -7,12 +7,12 @@ fn main() {
             .split_whitespace()
             .filter_map(|s| s.parse().ok())
             .collect();
-        match update_row(&row_numbers){
+        match update_row(&row_numbers) {
             Some(valid_row) => {
                 safe_reports += 1;
                 println!("valid row: {:?}", valid_row)
-            },
-            None => println!("Problem Dampener didn't work")
+            }
+            None => println!("Problem Dampener didn't work"),
         }
         // let is_valid = check_next_numbers(&row_numbers);
         // if is_valid {
@@ -57,7 +57,7 @@ fn update_row(numbers: &Vec<i32>) -> Option<Vec<i32>> {
     for i in 0..numbers.len() {
         let mut test_row = numbers.clone();
         test_row.remove(i);
-        
+
         if check_next_numbers(&test_row) {
             return Some(test_row);
         }
