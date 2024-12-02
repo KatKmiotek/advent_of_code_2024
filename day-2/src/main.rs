@@ -7,11 +7,18 @@ fn main() {
             .split_whitespace()
             .filter_map(|s| s.parse().ok())
             .collect();
-        let is_valid = check_next_numbers(&row_numbers);
-        if is_valid {
-            safe_reports += 1;
-            println!("valid row: {:?}", row_numbers)
+        match update_row(&row_numbers){
+            Some(valid_row) => {
+                safe_reports += 1;
+                println!("valid row: {:?}", valid_row)
+            },
+            None => println!("Problem Dampener didn't work")
         }
+        // let is_valid = check_next_numbers(&row_numbers);
+        // if is_valid {
+        //     safe_reports += 1;
+        //     println!("valid row: {:?}", row_numbers)
+        // }
     }
     println!("safe reports number is {}", safe_reports);
 }
@@ -26,8 +33,8 @@ fn check_next_numbers(numbers: &Vec<i32>) -> bool {
             _ => false,
         }
     });
-    if !difference_between_numbers || numbers.len() < 2 {
-        return difference_between_numbers;
+    if !difference_between_numbers {
+        return false;
     }
 
     let direction = numbers[1] - numbers[0];
@@ -41,4 +48,19 @@ fn check_next_numbers(numbers: &Vec<i32>) -> bool {
             diff < 0
         }
     })
+}
+
+fn update_row(numbers: &Vec<i32>) -> Option<Vec<i32>> {
+    if check_next_numbers(numbers) {
+        return Some(numbers.clone());
+    }
+    for i in 0..numbers.len() {
+        let mut test_row = numbers.clone();
+        test_row.remove(i);
+        
+        if check_next_numbers(&test_row) {
+            return Some(test_row);
+        }
+    }
+    None
 }
