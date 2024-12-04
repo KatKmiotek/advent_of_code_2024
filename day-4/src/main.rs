@@ -30,24 +30,24 @@ fn main() {
 }
 
 fn search_horizontal(grid: &Array2<char>, pattern: &str) -> usize {
-    let re = Regex::new(&pattern).unwrap();
+    let xmas_pattern = Regex::new(&pattern).unwrap();
     let mut total_matches = 0;
 
     for row in grid.rows() {
         let row_string: String = row.iter().collect();
-        total_matches += re.find_iter(&row_string).count();
+        total_matches += xmas_pattern.find_iter(&row_string).count();
     }
     total_matches
 }
 
 fn search_vertical(grid: &Array2<char>, pattern: &str) -> usize {
-    let re = Regex::new(&pattern).unwrap();
+    let xmas_pattern = Regex::new(&pattern).unwrap();
 
     let mut total_matches = 0;
 
     for column in grid.columns() {
         let column_string: String = column.iter().collect();
-        total_matches += re.find_iter(&column_string).count();
+        total_matches += xmas_pattern.find_iter(&column_string).count();
     }
     total_matches
 }
